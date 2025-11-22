@@ -1,0 +1,18 @@
+# conda env
+.env
+env/
+
+# data files
+data_raw/
+data_trimmed/
+bam/
+bedpe/
+result/
+results/
+qc/
+
+# notebooks
+.ipynb_checkpoints/
+
+# system
+.DS_Store
