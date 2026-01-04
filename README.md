@@ -1,48 +1,47 @@
-# cfDNA Fragmentation Mini-Project (Self-Learning)
+```markdown
+# cfDNA-mini
 
-**Mahdis Saffar Hamidi** | MSc Genetics | November 2025
+This repository is a mini project for processing cfDNA sequencing data. The goal is to provide a step-by-step pipeline for cfDNA data analysis and a reproducible example on GitHub.
 
-> **Goal**: Practice and learning project to explore cfDNA fragmentation patterns, inspired by ongoing research in molecular diagnostics (e.g., cfDNA studies at LMU Klinikum).  
-> **Dataset**:  [GSE100684 – cfDNA in cancer patients](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100684)   
-> **Tools**: R (ggplot2), FastQC, TrimGalore, BWA  
-> **Status**: Simulation completed | Real data analysis planned (Dec 2025)
+## Project Structure
 
----
-
-## Background
-
-Cell-free DNA (cfDNA) refers to DNA fragments circulating freely in the bloodstream. Its fragmentation patterns reflect nucleosome positioning and can inform tissue-of-origin, making cfDNA a powerful tool in non-invasive diagnostics. This mini-project simulates cfDNA fragmentation and prepares a pipeline for analyzing real sequencing data from cancer patients.
-
----
-
-## Results (Simulated)
-- Mean fragment length: ~167 bp  
-- Nucleosome peak: 166–170 bp  
-
-![Fragment Size Distribution](fragment_plot.png)
-
----
-
-## R Script
-```r
-# plot_fragment.R - Simulated cfDNA fragmentation
-set.seed(123)
-lengths <- c(rnorm(8000, 167, 10), rnorm(2000, 340, 15))
-library(ggplot2)
-ggplot(data.frame(length = lengths), aes(x = length)) +
-  geom_histogram(bins = 60, fill = "#1f77b4", alpha = 0.8) +
-  labs(title = "Simulated cfDNA Fragmentation", x = "Length (bp)", y = "Count") +
-  theme_minimal()
-ggsave("fragment_plot.png", width = 8, height = 5, dpi = 300)
 ```
 
----
+cfDNA-mini/
+├── data_trimmed/
+│   └── subset/               # subset fastq files
+├── refs/                     # reference files
+├── bam/                      # BAM outputs and sorted files
+├── scripts/                  # scripts used (if any)
+└── README.md
 
-## Pipeline (In Progress)
-```bash
-fastqc SRR10990278.fastq
-trim_galore SRR10990278.fastq
-bwa mem hg38.fa SRR10990278_trimmed.fq > aligned.sam
 ```
+
+## Pipeline Steps
+
+1. **Trimming**  
+   - Using `fastp` to remove adapters and low-quality bases.  
+   - Output files: `*_1.sub.fastq.gz` and `*_2.sub.fastq.gz`
+
+2. **Alignment**  
+   - Using `bwa mem` to align reads to the reference (e.g., chr1).  
+   - Outputs: `.sam` and `.sorted.bam`
+
+3. **BAM Processing**  
+   - Convert `.sam` to `.bam` with `samtools view`  
+   - Sort with `samtools sort`  
+   - Index with `samtools index`
+
+4. **QC & Summary**  
+   - Check mapping and pairing with `samtools flagstat`  
+   - Extract fragment lengths for insert size distribution analysis
+
+## Notes
+
+- This is a mini project for learning and creating a reproducible example on GitHub.  
+- Subsets of the data were used for faster processing.  
+- All steps are fully reproducible and can be applied to other samples.
+```
+
 
 > Contact: mahdiisshamidi79@gmail.com | [LinkedIn](https://linkedin.com/in/mahdis-saffar-hamidi)
