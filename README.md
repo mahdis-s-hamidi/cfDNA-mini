@@ -3,19 +3,6 @@
 
 This repository is a mini project for processing cfDNA sequencing data. The goal is to provide a step-by-step pipeline for cfDNA data analysis and a reproducible example on GitHub.
 
-## Project Structure
-
-```
-
-cfDNA-mini/
-├── data_trimmed/
-│   └── subset/               # subset fastq files
-├── refs/                     # reference files
-├── bam/                      # BAM outputs and sorted files
-├── scripts/                  # scripts used (if any)
-└── README.md
-
-```
 
 ## Pipeline Steps
 
