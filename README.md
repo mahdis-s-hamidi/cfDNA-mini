@@ -103,14 +103,13 @@ See `scripts/plot_fragment.R` for full annotated source. The script reads real p
 
 ```
 cfDNA-mini/
-├── .gitignore                         # Excludes raw data, BAMs, reference files
-├── README.md                          # This file
-├── METHODS.md                         # Extended methods with tool versions
-├── Snakefile                          # Snakemake pipeline (end-to-end)
-├── envs/
-│   └── environment.yml                # Conda environment specification
-├── scripts/
-│   └── plot_fragment.R                # Fragment length analysis (R)
+├── .gitignore
+├── LICENSE
+├── README.md
+├── METHOD.md
+├── Snakefile
+├── environment.yml
+├── plot_fragment.R
 └── results/
     ├── qc/
     │   ├── SRR2130005.flagstat
@@ -120,9 +119,9 @@ cfDNA-mini/
     │   ├── SRR2130052_fragment_lengths.txt
     │   └── summary_stats.csv
     └── figures/
-        ├── fragment_histogram.png
+        ├── fragment_hist_0005.png
+        ├── fragment_hist_0052.png
         └── fragment_boxplot.png
-```
 
 ---
 
@@ -187,6 +186,21 @@ by this short-fragment tail.
 
 > Fragment lengths were extracted from chr1-aligned, properly paired reads (TLEN field).
 > n = number of fragments per sample after filtering TLEN 1–999 bp.
+
+### Fragment Length Distributions
+
+![Fragment Size Distribution - SRR2130005](results/figures/fragment_hist_0005.png)
+![Fragment Size Distribution - SRR2130052](results/figures/fragment_hist_0052.png)
+![Fragment Length Boxplot Comparison](results/figures/fragment_boxplot.png)
+
+### Biological Interpretation
+
+The median fragment lengths of ~151–153 bp in both samples fall below the 
+canonical 167 bp mononucleosomal peak. This is consistent with published reports 
+of cfDNA being slightly shorter than the full nucleosome-protected length, due to 
+exonucleolytic trimming at fragment ends during apoptosis (Snyder et al., 2016). 
+The broad distribution and short-fragment tail reflect the chr1-subset and 
+read-depth limitations of this educational pipeline.
 
 ## Background
 
