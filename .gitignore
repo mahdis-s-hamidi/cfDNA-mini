@@ -1,18 +1,70 @@
-# conda env
-.env
-env/
+# =============================================================
+# cfDNA-mini  —  .gitignore
+# =============================================================
 
-# data files
+# ----- Raw & processed sequencing data (never commit) --------
 data_raw/
-data_trimmed/
-bam/
-bedpe/
-result/
-results/
-qc/
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
 
-# notebooks
-.ipynb_checkpoints/
+# ----- Reference genome files --------------------------------
+ref/
+*.fa
+*.fasta
+*.fa.gz
+*.fasta.gz
+*.fa.fai
+*.fasta.fai
+*.dict
+*.amb
+*.ann
+*.bwt
+*.pac
+*.sa
 
-# system
+# ----- Alignment outputs (large binary) ----------------------
+*.sam
+*.bam
+*.bam.bai
+*.cram
+*.crai
+
+# ----- Intermediate pipeline files ---------------------------
+trimmed/
+aligned/
+logs/
+*.log
+*.tmp
+*.temp
+benchmarks/
+
+# ----- R session artifacts -----------------------------------
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# ----- Python / conda / snakemake ----------------------------
+__pycache__/
+*.py[cod]
+.snakemake/
+*.snakemake.stats
+slurm-*.out
+*.sbatch.log
+
+# ----- OS / editor cruft -------------------------------------
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*~
+
+# ----- What IS committed (see results/ and scripts/) ---------
+# results/fragment_lengths/*.txt   — kept (small text summaries)
+# results/figures/*.png            — kept (final plots)
+# results/qc/*.flagstat            — kept (alignment QC)
+# scripts/                         — kept (all code)
+# envs/environment.yml             — kept (conda spec)
+# Snakefile                        — kept (pipeline definition)
