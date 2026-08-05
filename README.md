@@ -1,8 +1,7 @@
-```markdown
 # cfDNA-mini
 
-> **A reproducible educational pipeline for cell-free DNA (cfDNA) fragment-length analysis**  
-> Portfolio project · Mahdis Saffar-Hamidi · [LinkedIn](https://linkedin.com/in/mahdis-saffar-hamidi) · mahdiisshamidi79@gmail.com
+> **A reproducible educational pipeline for cell-free DNA (cfDNA) fragment-length analysis**
+> Portfolio project · Mahdis Saffar-Hamidi · [LinkedIn](https://linkedin.com/in/mahdis-s-hamidi) · [mahdiisshamidi79@gmail.com](mailto:mahdiisshamidi79@gmail.com)
 
 ---
 
@@ -18,10 +17,10 @@ This repository demonstrates a **complete, reproducible educational workflow** f
 
 ## Samples
 
-| Accession | BioProject | Status | Notes |
-|---|---|---|---|
-| SRR2130005 | PRJNA291561 | ✅ Used | Healthy donor cfDNA |
-| SRR2130052 | PRJNA291561 | ✅ Used | Healthy donor cfDNA |
+| Accession  | BioProject  | Status      | Notes                                                  |
+| ---------- | ----------- | ----------- | ------------------------------------------------------ |
+| SRR2130005 | PRJNA291561 | ✅ Used      | Healthy donor cfDNA                                    |
+| SRR2130052 | PRJNA291561 | ✅ Used      | Healthy donor cfDNA                                    |
 | SRR2130040 | PRJNA291561 | ❌ Discarded | Excluded due to low mapping rate on chr1 subset (<40%) |
 
 Raw sequencing data are available from [NCBI SRA](https://www.ncbi.nlm.nih.gov/sra?term=PRJNA291561). Raw FASTQ files are not included in this repository to keep it lightweight.
@@ -30,15 +29,13 @@ Raw sequencing data are available from [NCBI SRA](https://www.ncbi.nlm.nih.gov/s
 
 ## Pipeline Steps
 
-```
-
+```text
 FASTQ (SRA) → fastp (trimming) → bwa mem (chr1 alignment) → samtools (BAM processing) → R (fragment analysis)
-
-````
+```
 
 ---
 
-### 1. Read Trimming — `fastp`
+## 1. Read Trimming — `fastp`
 
 Adapter sequences and low-quality reads are removed. A subset of reads is processed to reduce runtime.
 
@@ -55,7 +52,7 @@ fastp \
   --thread 4 \
   -j trimmed/${SAMPLE}_fastp.json \
   -h trimmed/${SAMPLE}_fastp.html
-````
+```
 
 ---
 
