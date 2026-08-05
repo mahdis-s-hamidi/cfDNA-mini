@@ -25,6 +25,12 @@
 #   results/fragment_lengths/
 #       fragment_summary.csv
 #
+# Note on failure behaviour:
+#   This script does NOT fall back to simulated data. If an expected
+#   input file is missing, it stops with an explicit error pointing
+#   to the upstream pipeline step that should have produced it. This
+#   is intentional: a silently-generated fake plot is worse than a
+#   clear failure for a reproducibility-focused portfolio project.
 # =============================================================
 
 
@@ -58,26 +64,23 @@ load_fragment_lengths <- function(sample_id) {
     paste0("fragment_lengths_", sample_id, ".txt")
   )
 
-
   if (!file.exists(path)) {
 
     stop(
       "Missing fragment length file: ",
       path,
-      "\nPlease run the upstream pipeline first."
+      "\nPlease run the upstream pipeline first ",
+      "(see README: 'Run the full pipeline')."
     )
 
   }
 
-
   lengths <- scan(path, quiet = TRUE)
-
 
   lengths <- lengths[
     lengths > 0 &
     lengths < 1000
   ]
-
 
   message(
     "Loaded ",
@@ -87,9 +90,12 @@ load_fragment_lengths <- function(sample_id) {
     ")"
   )
 
-
+  # Reconstruct the full SRA accession from the 4-digit code for use
+  # in plot titles, axis labels, and the summary table. NOTE: the
+  # accession prefix is "SRR213" (not "SRR21300") -- e.g. code
+  # "0005" -> "SRR2130005", not "SRR213000005".
   data.frame(
-    sample = paste0("SRR21300", sample_id),
+    sample = paste0("SRR213", sample_id),
     length = lengths
   )
 
@@ -99,7 +105,6 @@ load_fragment_lengths <- function(sample_id) {
 df <- bind_rows(
   lapply(samples, load_fragment_lengths)
 )
-
 
 
 # -------------------------------------------------------------
@@ -113,7 +118,7 @@ stats <- df %>%
     mean_bp = round(mean(length), 1),
     median_bp = median(length),
     sd_bp = round(sd(length), 1),
-    pct_mono =
+    pct_mono_120_200bp =
       round(
         mean(length >= 120 &
              length <= 200) * 100,
@@ -136,17 +141,14 @@ write.csv(
 )
 
 
-
 # -------------------------------------------------------------
 # 3. Per-sample histograms
 # -------------------------------------------------------------
 
 for (s in unique(df$sample)) {
 
-
   sample_df <- df %>%
     filter(sample == s)
-
 
   p <- ggplot(
     sample_df,
@@ -175,8 +177,8 @@ for (s in unique(df$sample)) {
     ) +
 
     scale_x_continuous(
-      limits = c(50,600),
-      breaks = seq(50,600,50)
+      limits = c(50, 600),
+      breaks = seq(50, 600, 50)
     ) +
 
     labs(
@@ -197,17 +199,17 @@ for (s in unique(df$sample)) {
       base_size = 13
     )
 
-
+  # Output filename uses the trailing 4-digit code, matching the
+  # committed results/figures/ naming convention.
   output_name <- paste0(
     "fragment_hist_",
     substr(
       s,
-      nchar(s)-3,
+      nchar(s) - 3,
       nchar(s)
     ),
     ".png"
   )
-
 
   ggsave(
     filename =
@@ -222,7 +224,6 @@ for (s in unique(df$sample)) {
   )
 
 }
-
 
 
 # -------------------------------------------------------------
@@ -250,8 +251,8 @@ p_box <- ggplot(
   ) +
 
   scale_y_continuous(
-    limits = c(50,600),
-    breaks = seq(50,600,50)
+    limits = c(50, 600),
+    breaks = seq(50, 600, 50)
   ) +
 
   labs(
@@ -270,7 +271,6 @@ p_box <- ggplot(
   )
 
 
-
 ggsave(
   filename =
     file.path(
@@ -282,7 +282,6 @@ ggsave(
   height = 5,
   dpi = 300
 )
-
 
 
 message(
