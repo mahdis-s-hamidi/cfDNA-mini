@@ -1,4 +1,3 @@
-```markdown
 # Methods
 
 ## Data Source
@@ -7,8 +6,8 @@ Paired-end cfDNA sequencing data were obtained from NCBI SRA (BioProject PRJNA29
 
 Two samples were retained for analysis:
 
-- SRR2130005
-- SRR2130052
+* SRR2130005
+* SRR2130052
 
 A third sample (SRR2130040) was excluded due to anomalously low mapping rate on the chromosome 1 subset (<40%), likely reflecting a data quality issue amplified by single-chromosome subsetting.
 
@@ -20,29 +19,35 @@ Raw FASTQ files are not included in this repository to keep the project lightwei
 
 All analyses were performed using the conda environment defined in:
 
-```
-
+```text
 envs/environment.yml
-
 ```
 
 Key software versions:
 
-| Tool | Version | Purpose |
-|---|---|---|
-| fastp | 0.23.4 | Adapter trimming and read QC |
-| bwa | 0.7.17 | Short-read alignment |
-| samtools | 1.18 | BAM processing and QC |
-| R | 4.3.x | Statistical analysis |
-| ggplot2 | 3.5.x | Visualisation |
-| dplyr | 1.1.x | Data manipulation |
-| Snakemake | 7.32.x | Workflow management |
+| Tool      | Version | Purpose                      |
+| --------- | ------- | ---------------------------- |
+| fastp     | 0.23.4  | Adapter trimming and read QC |
+| bwa       | 0.7.17  | Short-read alignment         |
+| samtools  | 1.18    | BAM processing and QC        |
+| R         | 4.3.x   | Statistical analysis         |
+| ggplot2   | 3.5.x   | Visualisation                |
+| dplyr     | 1.1.x   | Data manipulation            |
+| Snakemake | 7.32.x  | Workflow management          |
 
 ---
 
 ## Reference Genome
 
 Chromosome 1 from the human genome assembly GRCh38/hg38 was used as the alignment reference.
+
+```text
+Source : UCSC Genome Browser
+URL    : https://hgdownload.soe.ucsc.edu/goldenPath/hg38/chromosomes/chr1.fa.gz
+MD5    : (run md5sum ref/chr1.fa after download to verify)
+```
+
+Alignment was restricted to chromosome 1 to allow complete execution on a standard laptop without high-performance computing resources. This represents an educational simplification and does not reflect a genome-wide cfDNA analysis.
 
 ```
 
