@@ -1,7 +1,7 @@
 # cfDNA-mini
 
 > **A reproducible educational pipeline for cell-free DNA (cfDNA) fragment-length analysis**
-> Portfolio project · Mahdis Saffar-Hamidi · [LinkedIn](https://linkedin.com/in/mahdis-s-hamidi) · [mahdiisshamidi79@gmail.com](mailto:mahdiisshamidi79@gmail.com)
+> Portfolio project · Mahdis Saffarhamidi · [LinkedIn](https://linkedin.com/in/mahdis-s-hamidi) · [mahdiisshamidi79@gmail.com](mailto:mahdiisshamidi79@gmail.com)
 
 ---
 
